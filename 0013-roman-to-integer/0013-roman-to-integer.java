@@ -1,29 +1,32 @@
 class Solution {
     public int romanToInt(String s) {
+          s = s.toUpperCase();
+        HashMap<Character,Integer>ss=new HashMap<>();
+        ss.put('I',1);
+         ss.put('V',5);
+          ss.put('X',10);
+           ss.put('L',50);
+            ss.put('C',100);
+             ss.put('D',500);
+              ss.put('M',1000);
+
+        
         int sum = 0;
 
         for (int i = 0; i < s.length(); i++) {
-            int curr = value(s.charAt(i));
+            int curr = ss.getOrDefault(s.charAt(i), 0);
 
-            // If next symbol exists and is larger, subtract
-            if (i + 1 < s.length() && curr < value(s.charAt(i + 1))) {
+            int next = 0;
+            if (i + 1 < s.length()) {
+                next = ss.getOrDefault(s.charAt(i + 1), 0);
+            }
+
+            if (curr < next) {
                 sum -= curr;
             } else {
                 sum += curr;
             }
         }
         return sum;
-    }
-
-    // Helper method to get value of Roman character
-    private int value(char c) {
-        if (c == 'I') return 1;
-        if (c == 'V') return 5;
-        if (c == 'X') return 10;
-        if (c == 'L') return 50;
-        if (c == 'C') return 100;
-        if (c == 'D') return 500;
-        if (c == 'M') return 1000;
-        return 0;
     }
 }
