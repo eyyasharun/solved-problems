@@ -1,25 +1,22 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        HashMap<Integer,Integer> hm=new HashMap<>();
-        int n=nums.length;
-        for(int i=0;i<n;i++){
-            int key=nums[i];
-            if(hm.containsKey(key)){
-                int prev=hm.get(key);
-                hm.put(key,prev+1);
-            }else{
-                hm.put(key,1);
+  HashMap<Integer,Integer> m=new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            if(m.containsKey(nums[i])){
+                int prev=m.get(nums[i]);
+                m.put(nums[i],prev+1);
+
+            }
+            else{
+                m.put(nums[i],1);
             }
         }
-        int maxfreq=0;
-        int maxkey=0;
-        for(int j=0;j<n;j++){
-            int s=nums[j];
-            if(hm.get(s)>maxfreq){
-                maxfreq=hm.get(s);
-                maxkey=s;
+        for( int max: m.keySet()){
+            if(m.get(max)> nums.length/2){
+                return max;
             }
+
         }
-        return maxkey;
+        return -1;
     }
 }
